@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<title>angular-chosen Demo</title>
+	<!-- bower:css -->
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+	<!-- endbower -->
+	<link rel="stylesheet" href="sticky-footer-navbar.css"/>
+	<link rel="stylesheet" href="style.css"/>
+	<!-- bower:js -->
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/angular/angular.js"></script>
+	<script src="../bower_components/chosen/chosen.jquery.min.js"></script>
+	<!-- endbower -->
+
+	<!--<script src="../build/angular-chosen.min.js"></script>-->
+	<script src="../src/angular-chosen.js"></script>
+	<script src="app.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+				aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="https://github.com/jeserkin/angular-chosen">angular-chosen</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container" ng-cloak>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Usage Examples</h1>
+
+			<form class="form-horizontal" name="form" role="form" ng-controller="AngularCtrl">
+				<!--<div ng-include="'segments/basic-usage.html'"></div>-->
+			</form>
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted"><span class="copyleft">&copy;</span> 2015
+			<a href="https://github.com/jeserkin/angular-chosen">angular-chosen</a></p>
+	</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "angular-chosen",
+  "version": "0.0.1",
+  "main": "build/angular-chosen.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "example",
+    "Gruntfile.js",
+    "package.json",
+    "src",
+    "**/*.min.js"
+  ],
+  "dependencies": {
+    "angular": "^1.2.25",
+    "chosen": "^1.4.1"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.0.0"
+  }
+}
