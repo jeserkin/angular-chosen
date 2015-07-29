@@ -1,0 +1,10 @@
+<h2>Passing options in as a hash</h2>
+
+<div>
+  <p>Selected option: {{options.selectedOptionFromHash}}</p>
+
+  <select name="selectedOptionFromHash" ng-model="options.selectedOptionFromHash"
+          ng-options="value for value in optionsAsHash" chosen="{no_results_text: 'SO SORRY', width: '176px'}">
+    <option value=""></option> <!-- @TODO If absent, then last option is not selectable after some time -->
+  </select>
+</div>

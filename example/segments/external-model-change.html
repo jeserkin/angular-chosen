@@ -1,0 +1,10 @@
+<h2>Changing the ngModel externally</h2>
+
+<div>
+  <p>Selected option/s: {{options.selectedMultipleOptions}}</p>
+
+  <select name="selectedMultipleOptions" ng-model="options.selectedMultipleOptions"
+          ng-options="value as label for (value, label) in optionsForExternalChange"
+          chosen="{width: '200px'}" multiple>
+  </select>
+</div>
