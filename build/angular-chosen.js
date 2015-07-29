@@ -1,5 +1,5 @@
 /**
- * angular-chosen 0.0.1
+ * angular-chosen 0.0.1-rc.0
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -53,16 +53,18 @@
                         }
                     });
                 };
-                ngModelCtrl.$formatters.push(function(modelValue) {
-                    _init(_el);
-                    return modelValue;
-                });
-                ngModelCtrl.$parsers.push(function(viewValue) {
-                    return viewValue;
-                });
-                ngModelCtrl.$isEmpty = function(value) {
-                    return angular.isDefined(value);
-                };
+                if (ngModelCtrl) {
+                    ngModelCtrl.$formatters.push(function(modelValue) {
+                        _init(_el);
+                        return modelValue;
+                    });
+                    ngModelCtrl.$parsers.push(function(viewValue) {
+                        return viewValue;
+                    });
+                    ngModelCtrl.$isEmpty = function(value) {
+                        return angular.isDefined(value);
+                    };
+                }
                 _ngOptionsMonitoring(_el);
                 _disableStateMonitoring(_el);
             }

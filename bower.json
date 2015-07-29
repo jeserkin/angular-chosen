@@ -1,6 +1,6 @@
 {
   "name": "angular-chosen",
-  "version": "0.0.1",
+  "version": "0.0.1-rc.0",
   "main": "build/angular-chosen.js",
   "ignore": [
     "**/.*",

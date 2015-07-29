@@ -76,25 +76,21 @@
               });
             };
 
-          ngModelCtrl.$formatters.push(function(modelValue) {
-            _init(_el);
-            
-            return modelValue;
-          });
+          if (ngModelCtrl) {
+            ngModelCtrl.$formatters.push(function(modelValue) {
+              _init(_el);
 
-          ngModelCtrl.$parsers.push(function(viewValue) {
-            return viewValue;
-          });
+              return modelValue;
+            });
 
-          ngModelCtrl.$isEmpty = function(value) {
-            //return value && value.trim() !== '';
-            return angular.isDefined(value);
-          };
+            ngModelCtrl.$parsers.push(function(viewValue) {
+              return viewValue;
+            });
 
-          /*var origRender = ngModelCtrl.$render;
-          ngModelCtrl.$render = function() {
-            origRender();
-          };*/
+            ngModelCtrl.$isEmpty = function(value) {
+              return angular.isDefined(value);
+            };
+          }
 
           _ngOptionsMonitoring(_el);
           _disableStateMonitoring(_el);
