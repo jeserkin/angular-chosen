@@ -4,7 +4,7 @@
   angular.module('angular-chosen', []);
 
   angular.module('angular-chosen')
-    .directive('chosen', function($parse) {
+    .directive('chosen', function($parse, $timeout) {
       // @TODO Not very good solution
       var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
 
@@ -64,15 +64,17 @@
                 valuesExpr = match[7]; // select options
 
               scope.$watchCollection(valuesExpr, function(newVal) {
-                if (angular.isUndefined(newVal)) {
-                  // @TODO What to do?
-                }
-                else {
-                  _enable(element);
-                  if (_isEmpty(newVal)) {
-                    _disable(element);
+                $timeout(function() {
+                  if (angular.isUndefined(newVal)) {
+                    // @TODO What to do?
                   }
-                }
+                  else {
+                    _enable(element);
+                    if (_isEmpty(newVal)) {
+                      _disable(element);
+                    }
+                  }
+                });
               });
             };
 
@@ -89,6 +91,14 @@
 
             ngModelCtrl.$isEmpty = function(value) {
               return angular.isDefined(value);
+            };
+
+            ngModelCtrl.$validators.required = function(modelValue, viewValue) {
+              if (angular.isUndefined(iAttrs.required)) {
+                return true;
+              }
+
+              return angular.isDefined(modelValue) && modelValue !== null;
             };
           }
 

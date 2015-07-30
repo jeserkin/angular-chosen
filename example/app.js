@@ -9,7 +9,8 @@ angular.module('app')
       selectedStaticOption: undefined,
       selectedOptionFromHash: undefined,
       selectedDisabledOption: undefined,
-      selectedMultipleOptions: undefined
+      selectedMultipleOptions: undefined,
+      selectedGroupOption: undefined
     };
 
     // Hash
@@ -39,4 +40,19 @@ angular.module('app')
       hamster: 'Hamster'
     };
     $scope.options.selectedMultipleOptions = ['cat'];
+
+    // Grouped options
+    $scope.groupedOptions = [{
+      text: 'Cat',
+      group: 'Animal'
+    }, {
+      text: 'Dog',
+      group: 'Animal'
+    }, {
+      text: 'Hamster',
+      group: 'Animal'
+    }, {
+      text: 'Parrot',
+      group: 'Bird'
+    }];
   });

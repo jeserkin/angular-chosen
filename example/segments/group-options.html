@@ -1,0 +1,11 @@
+<h2>Select with groups</h2>
+
+<div>
+	<p>Selected option: {{options.selectedGroupOption}}</p>
+
+	<select name="selectedGroupOption" ng-model="options.selectedGroupOption" ng-required="true"
+		ng-options="option as option.text group by option.group for option in groupedOptions"
+		chosen="{width: '200px'}" data-placeholder="- Select -">
+		<option value=""></option>
+	</select>
+</div>

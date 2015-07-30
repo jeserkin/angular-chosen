@@ -1,5 +1,5 @@
 /**
- * angular-chosen 0.0.1-rc.0
+ * angular-chosen 0.0.1-rc.1
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -7,7 +7,7 @@
 
 (function(angular) {
     angular.module("angular-chosen", []);
-    angular.module("angular-chosen").directive("chosen", function($parse) {
+    angular.module("angular-chosen").directive("chosen", function($parse, $timeout) {
         var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
         return {
             restrict: "A",
@@ -45,12 +45,14 @@
                     }
                     var match = iAttrs.ngOptions.match(NG_OPTIONS_REGEXP), valuesExpr = match[7];
                     scope.$watchCollection(valuesExpr, function(newVal) {
-                        if (angular.isUndefined(newVal)) {} else {
-                            _enable(element);
-                            if (_isEmpty(newVal)) {
-                                _disable(element);
+                        $timeout(function() {
+                            if (angular.isUndefined(newVal)) {} else {
+                                _enable(element);
+                                if (_isEmpty(newVal)) {
+                                    _disable(element);
+                                }
                             }
-                        }
+                        });
                     });
                 };
                 if (ngModelCtrl) {
@@ -63,6 +65,12 @@
                     });
                     ngModelCtrl.$isEmpty = function(value) {
                         return angular.isDefined(value);
+                    };
+                    ngModelCtrl.$validators.required = function(modelValue, viewValue) {
+                        if (angular.isUndefined(iAttrs.required)) {
+                            return true;
+                        }
+                        return angular.isDefined(modelValue) && modelValue !== null;
                     };
                 }
                 _ngOptionsMonitoring(_el);
