@@ -1,15 +1,17 @@
 <h2>Disabling the element with a message when the collection is empty</h2>
 
-<div>
-  <p>Selected option: {{options.selectedDisabledOption}}</p>
+<div class="row">
+  <div class="col-xs-3" ng-class="{'has-error': nform.selectedDisabledOption.$error.required}">
+    <p>Selected option: {{options.selectedDisabledOption}}</p>
 
-  <p>
-    <input type="checkbox" ng-model="isEmptyCollection" ng-change="toggleEmpty()" /> Empty?
-  </p>
+    <p>
+      <input type="checkbox" ng-model="isEmptyCollection" ng-change="toggleEmpty()"/> Empty?
+    </p>
 
-  <select name="selectedDisabledOption" ng-model="options.selectedDisabledOption"
-          ng-options="value for value in optionsForEmptyCollection"
-          chosen="{no_results_text: 'Sorry no options for you', width: '176px'}">
-    <option value=""></option>
-  </select>
+    <select name="selectedDisabledOption" class="form-control" ng-model="options.selectedDisabledOption"
+            ng-options="value for value in optionsForEmptyCollection"
+            chosen="{no_results_text: 'Sorry no options for you'}" ng-required="true">
+      <option value=""></option>
+    </select>
+  </div>
 </div>

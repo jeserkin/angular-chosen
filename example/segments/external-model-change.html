@@ -1,10 +1,12 @@
 <h2>Changing the ngModel externally</h2>
 
-<div>
-  <p>Selected option/s: {{options.selectedMultipleOptions}}</p>
+<div class="row">
+  <div class="col-xs-3" ng-class="{'has-error': nform.selectedMultipleOptions.$error.required}">
+    <p>Selected option/s: {{options.selectedMultipleOptions}}</p>
 
-  <select name="selectedMultipleOptions" ng-model="options.selectedMultipleOptions"
-          ng-options="value as label for (value, label) in optionsForExternalChange"
-          chosen="{width: '200px'}" multiple>
-  </select>
+    <select name="selectedMultipleOptions" class="form-control" ng-model="options.selectedMultipleOptions"
+            ng-options="value as label for (value, label) in optionsForExternalChange"
+            chosen multiple ng-required="true">
+    </select>
+  </div>
 </div>

@@ -1,11 +1,13 @@
 <h2>Select with groups</h2>
 
-<div>
-	<p>Selected option: {{options.selectedGroupOption}}</p>
+<div class="row">
+  <div class="col-xs-3" ng-class="{'has-error': nform.selectedGroupOption.$error.required}">
+    <p>Selected option: {{options.selectedGroupOption}}</p>
 
-	<select name="selectedGroupOption" ng-model="options.selectedGroupOption" ng-required="true"
-		ng-options="option as option.text group by option.group for option in groupedOptions"
-		chosen="{width: '200px'}" data-placeholder="- Select -">
-		<option value=""></option>
-	</select>
+    <select name="selectedGroupOption" class="form-control" ng-model="options.selectedGroupOption" ng-required="true"
+            ng-options="option as option.text group by option.group for option in groupedOptions"
+            chosen data-placeholder="- Select -">
+      <option value=""></option>
+    </select>
+  </div>
 </div>

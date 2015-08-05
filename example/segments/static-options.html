@@ -1,15 +1,18 @@
 <h2>Chosen with static options</h2>
 
-<div>
-  <p>Selected option: {{options.selectedStaticOption}}</p>
+<div class="row">
+  <div class="col-xs-3">
+    <p>Selected option: {{options.selectedStaticOption}}</p>
 
-  <select name="selectedStaticOption" ng-model="options.selectedStaticOption" chosen="{disable_search: true}">
-    <option></option>
-    <option>Hi</option>
-    <option>This is fun</option>
-    <option>I like Chosen so much</option>
-    <option>I also like bunny rabbits</option>
-    <option>Test</option>
-    <option value="This"></option>
-  </select>
+    <select name="selectedStaticOption" ng-model="options.selectedStaticOption" chosen="{disable_search: true}"
+            class="form-control">
+      <option value=""></option>
+      <option>Hi</option>
+      <option>This is fun</option>
+      <option>I like Chosen so much</option>
+      <option>I also like bunny rabbits</option>
+      <option>Test</option>
+      <option value="This"></option>
+    </select>
+  </div>
 </div>

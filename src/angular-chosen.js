@@ -90,15 +90,15 @@
             });
 
             ngModelCtrl.$isEmpty = function(value) {
-              return angular.isDefined(value);
+              return !value || value.length === 0;
             };
 
-            ngModelCtrl.$validators.required = function(modelValue, viewValue) {
+            ngModelCtrl.$validators.required = function(modelValue) {
               if (angular.isUndefined(iAttrs.required)) {
                 return true;
               }
 
-              return angular.isDefined(modelValue) && modelValue !== null;
+              return !ngModelCtrl.$isEmpty(modelValue);
             };
           }
 
