@@ -1,5 +1,5 @@
 /**
- * angular-chosen 0.0.1-rc.2
+ * angular-chosen 0.0.1-rc.3
  * @author Eugene Serkin
  * @license MIT License http://opensource.org/licenses/MIT
  */
@@ -67,7 +67,7 @@
                         return !value || value.length === 0;
                     };
                     ngModelCtrl.$validators.required = function(modelValue) {
-                        if (angular.isUndefined(iAttrs.required)) {
+                        if (iAttrs.required === false) {
                             return true;
                         }
                         return !ngModelCtrl.$isEmpty(modelValue);

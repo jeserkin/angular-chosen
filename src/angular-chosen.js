@@ -94,7 +94,7 @@
             };
 
             ngModelCtrl.$validators.required = function(modelValue) {
-              if (angular.isUndefined(iAttrs.required)) {
+              if (iAttrs.required === false) {
                 return true;
               }
 
