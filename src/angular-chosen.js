@@ -6,7 +6,48 @@
   angular.module('angular-chosen')
     .directive('chosen', function($parse, $timeout) {
       // @TODO Not very good solution
-      var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
+      var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,
+        defaultText = '',
+
+        _init = function(element, options) {
+          options = element.chosen(options)
+            .data('chosen');
+          element.trigger('chosen:updated');
+          defaultText = options.default_text;
+
+          element.addClass('angular-chosen');
+        },
+        _isEmpty = function(value) {
+          if (angular.isArray(value)) {
+            return value.length === 0;
+          }
+          else if (angular.isObject(value)) {
+            var key;
+
+            for (key in value) {
+              if (value.hasOwnProperty(key)) {
+                return false;
+              }
+            }
+          }
+
+          return true;
+        },
+        _disableStateMonitoring = function(element, attrs) {
+          attrs.$observe('disabled', function() {
+            return element.trigger('chosen:updated');
+          });
+        },
+        _enable = function(element) {
+          element.attr('data-placeholder', defaultText)
+            .removeAttr('disabled')
+            .trigger('chosen:updated');
+        },
+        _disable = function(element, options) {
+          element.attr('data-placeholder', options.results_none_found)
+            .attr('disabled', 'disabled')
+            .trigger('chosen:updated');
+        };
 
       return {
         restrict: 'A',
@@ -14,47 +55,7 @@
         link: function(scope, iElement, iAttrs, ngModelCtrl) {
           var _el = angular.element(iElement),
             options = $parse(iAttrs.chosen)() || {},
-            defaultText = '';
 
-          var _init = function(element) {
-              options = element.chosen(options)
-                .data('chosen');
-              element.trigger('chosen:updated');
-              defaultText = options.default_text;
-
-              _el.addClass('angular-chosen');
-            },
-            _isEmpty = function(value) {
-              if (angular.isArray(value)) {
-                return value.length === 0;
-              }
-              else if (angular.isObject(value)) {
-                var key;
-
-                for (key in value) {
-                  if (value.hasOwnProperty(key)) {
-                    return false;
-                  }
-                }
-              }
-
-              return true;
-            },
-            _disableStateMonitoring = function(element) {
-              iAttrs.$observe('disabled', function() {
-                return element.trigger('chosen:updated');
-              });
-            },
-            _enable = function(element) {
-              element.attr('data-placeholder', defaultText)
-                .removeAttr('disabled')
-                .trigger('chosen:updated');
-            },
-            _disable = function(element) {
-              element.attr('data-placeholder', options.results_none_found)
-                .attr('disabled', 'disabled')
-                .trigger('chosen:updated');
-            },
             _ngOptionsMonitoring = function(element) {
               if (!iAttrs.ngOptions || !ngModelCtrl) {
                 return;
@@ -71,7 +72,7 @@
                   else {
                     _enable(element);
                     if (_isEmpty(newVal)) {
-                      _disable(element);
+                      _disable(element, options);
                     }
                   }
                 });
@@ -80,7 +81,7 @@
 
           if (ngModelCtrl) {
             ngModelCtrl.$formatters.push(function(modelValue) {
-              _init(_el);
+              _init(_el, options, defaultText);
 
               return modelValue;
             });
@@ -94,7 +95,7 @@
             };
 
             ngModelCtrl.$validators.required = function(modelValue) {
-              if (iAttrs.required === false) {
+              if (angular.isUndefined(iAttrs.required) || iAttrs.required === false) {
                 return true;
               }
 
@@ -103,7 +104,7 @@
           }
 
           _ngOptionsMonitoring(_el);
-          _disableStateMonitoring(_el);
+          _disableStateMonitoring(_el, iAttrs);
         }
       };
     });
